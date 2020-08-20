@@ -3,14 +3,13 @@ echo Please Provide server info:
 read -p 'VirtualHubName: ' VirtualHubName
 read -p 'VirtualHubPass: ' VirtualHubPass
 read -p 'PreSharedKey: ' PreSharedKey
-read -p 'OpenVPN_Port: ' OpenVPN_Port
+read -p 'OpenVPN_Port' OpenVPN_Port
 
 
-apt update && apt upgrade -y 
-apt install nano wget curl zip unzip tar gzip bc rc openssl cron net-tools dnsutils dos2unix screen bzip2 -y 
-apt install build-essential libreadline-dev libssl-dev libncurses-dev zlib1g-dev -y 
-apt install apache2 -y 
-
+apt update && apt upgrade -y
+apt install nano wget curl zip unzip tar gzip bc rc openssl cron net-tools dnsutils dos2unix screen bzip2 -y
+apt install build-essential libreadline-dev libssl-dev libncurses-dev zlib1g-dev -y
+apt install apache2
 
 wget -qO softether.tar.gz "https://github.com/SoftEtherVPN/SoftEtherVPN_Stable/archive/v4.34-9745-beta.tar.gz" && tar xzf softether.tar.gz && rm -f softether.tar.gz && mv SoftEtherVPN_Stable* SE
 cd SE && ./configure && make && make install
@@ -21,7 +20,7 @@ vpncmd localhost /SERVER /CMD HubCreate "$VirtualHubName" /PASSWORD:"$VirtualHub
 vpncmd localhost /SERVER /ADMINHUB:"$VirtualHubName" /CMD NatEnable
 vpncmd localhost /SERVER /ADMINHUB:"$VirtualHubName" /CMD SecureNatEnable
 vpncmd localhost /SERVER /ADMINHUB:"$VirtualHubName" /CMD DhcpEnable
-DefIP_ID="$(vpncmd localhost /SERVER /ADMINHUB:"$VirtualHubName" /CMD IpTable | grep "ID" | head -n1 | cut -d "|" -f2)" && vpncmd localhost /SERVER /ADMINHUB:"$VirtualHubName" /CMD IpDelete $DefIP_ID
+vpncmd localhost /SERVER /ADMINHUB:"$VirtualHubName" /CMD IpDelete "$(vpncmd localhost /SERVER /ADMINHUB:"$VirtualHubName" /CMD IpTable | grep "ID" | head -n1 | cut -d "|" -f2)"
 vpncmd localhost /SERVER /ADMINHUB:"$VirtualHubName" /CMD SecureNatHostSet /MAC:none /IP:"172.16.0.1" /MASK:"255.255.0.0"
 vpncmd localhost /SERVER /ADMINHUB:"$VirtualHubName" /CMD DhcpSet /START:"172.16.0.10" /END:"172.16.255.254" /MASK:"255.255.0.0" /EXPIRE:"10" /GW:"172.16.0.1" /DNS:"1.1.1.1" /DNS2:"1.0.0.1" /DOMAIN:none /LOG:yes
 
