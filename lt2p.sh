@@ -5,15 +5,15 @@ read -p 'VirtualHubPass: ' VirtualHubPass
 read -p 'PreSharedKey: ' PreSharedKey
 read -p 'OpenVPN_Port: ' OpenVPN_Port
 
-echo apt update and apt upgrading
-apt update && apt upgrade -y &> /dev/null
-apt install nano wget curl zip unzip tar gzip bc rc openssl cron net-tools dnsutils dos2unix screen bzip2 -y &> /dev/null
-apt install build-essential libreadline-dev libssl-dev libncurses-dev zlib1g-dev -y &> /dev/null
-apt install apache2 -y &> /dev/null
 
-echo Building
+apt update && apt upgrade -y 
+apt install nano wget curl zip unzip tar gzip bc rc openssl cron net-tools dnsutils dos2unix screen bzip2 -y 
+apt install build-essential libreadline-dev libssl-dev libncurses-dev zlib1g-dev -y 
+apt install apache2 -y 
+
+
 wget -qO softether.tar.gz "https://github.com/SoftEtherVPN/SoftEtherVPN_Stable/archive/v4.34-9745-beta.tar.gz" && tar xzf softether.tar.gz && rm -f softether.tar.gz && mv SoftEtherVPN_Stable* SE
-cd SE && ./configure && make && make install &> /dev/null
+cd SE && ./configure && make && make install
 cp debian/softether-vpnserver.init /etc/init.d/vpnserver && chmod +x /etc/init.d/vpnserver
 vpnserver start &> /dev/null
 chkconfig vpnserver on &> /dev/null || systemctl enable vpnserver &> /dev/null
