@@ -9,7 +9,7 @@ read -p 'OpenVPN_Port' OpenVPN_Port
 apt update && apt upgrade -y
 apt install nano wget curl zip unzip tar gzip bc rc openssl cron net-tools dnsutils dos2unix screen bzip2 -y
 apt install build-essential libreadline-dev libssl-dev libncurses-dev zlib1g-dev -y
-apt install apache2
+apt install apache2 -y
 
 wget -qO softether.tar.gz "https://github.com/SoftEtherVPN/SoftEtherVPN_Stable/archive/v4.34-9745-beta.tar.gz" && tar xzf softether.tar.gz && rm -f softether.tar.gz && mv SoftEtherVPN_Stable* SE
 cd SE && ./configure && make && make install
