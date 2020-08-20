@@ -6,7 +6,7 @@ read -p 'PreSharedKey: ' PreSharedKey
 read -p 'OpenVPN_Port: ' OpenVPN_Port
 
 
-apt update && apt upgrade -y
+apt update && apt upgrade -y &> /dev/null
 apt install nano wget curl zip unzip tar gzip bc rc openssl cron net-tools dnsutils dos2unix screen bzip2 -y &> /dev/null
 apt install build-essential libreadline-dev libssl-dev libncurses-dev zlib1g-dev -y &> /dev/null
 apt install apache2 -y &> /dev/null
