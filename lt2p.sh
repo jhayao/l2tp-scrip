@@ -3,7 +3,7 @@ echo Please Provide server info:
 read -p 'VirtualHubName: ' VirtualHubName
 read -p 'VirtualHubPass: ' VirtualHubPass
 read -p 'PreSharedKey: ' PreSharedKey
-read -p 'OpenVPN_Port' OpenVPN_Port
+read -p 'OpenVPN_Port: ' OpenVPN_Port
 
 
 apt update && apt upgrade -y
